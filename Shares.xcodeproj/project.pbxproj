@@ -18,6 +18,8 @@
 		F3A46D892AEA772F00A44440 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D882AEA772F00A44440 /* APICaller.swift */; };
 		F3A46D8B2AEA774900A44440 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D8A2AEA774900A44440 /* PersistenceManager.swift */; };
 		F3A46D8D2AEA775600A44440 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D8C2AEA775600A44440 /* HapticsManager.swift */; };
+		F3A46D8F2AEA9DFB00A44440 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D8E2AEA9DFB00A44440 /* UIView+Ext.swift */; };
+		F3A46D912AEAA61800A44440 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D902AEAA61800A44440 /* SearchResultTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		F3A46D882AEA772F00A44440 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		F3A46D8A2AEA774900A44440 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		F3A46D8C2AEA775600A44440 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		F3A46D8E2AEA9DFB00A44440 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		F3A46D902AEAA61800A44440 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				F3A46D742AEA70E400A44440 /* LaunchScreen.storyboard */,
+				F3A46D902AEAA61800A44440 /* SearchResultTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -118,6 +123,7 @@
 				F3A46D722AEA70E400A44440 /* Assets.xcassets */,
 				F3A46D692AEA70DE00A44440 /* AppDelegate.swift */,
 				F3A46D6B2AEA70DE00A44440 /* SceneDelegate.swift */,
+				F3A46D8E2AEA9DFB00A44440 /* UIView+Ext.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -193,7 +199,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3A46D8D2AEA775600A44440 /* HapticsManager.swift in Sources */,
+				F3A46D912AEAA61800A44440 /* SearchResultTableViewCell.swift in Sources */,
 				F3A46D872AEA76A000A44440 /* SharesDetailViewController.swift in Sources */,
+				F3A46D8F2AEA9DFB00A44440 /* UIView+Ext.swift in Sources */,
 				F3A46D6E2AEA70DE00A44440 /* WatchListViewController.swift in Sources */,
 				F3A46D832AEA745700A44440 /* TopStoriesNewsViewController.swift in Sources */,
 				F3A46D8B2AEA774900A44440 /* PersistenceManager.swift in Sources */,
