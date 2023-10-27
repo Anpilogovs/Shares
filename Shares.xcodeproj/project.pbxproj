@@ -24,6 +24,7 @@
 		F3A46D962AEAC92300A44440 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F3A46D952AEAC92300A44440 /* SnapKit */; };
 		F3A46D982AEBB61100A44440 /* PanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D972AEBB61100A44440 /* PanelViewController.swift */; };
 		F3A46D9B2AEBC43200A44440 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D9A2AEBC43200A44440 /* NewsHeaderView.swift */; };
+		F3A46D9D2AEBD4F600A44440 /* NewsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A46D9C2AEBD4F600A44440 /* NewsStory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		F3A46D922AEAC23E00A44440 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		F3A46D972AEBB61100A44440 /* PanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelViewController.swift; sourceTree = "<group>"; };
 		F3A46D9A2AEBC43200A44440 /* NewsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
+		F3A46D9C2AEBD4F600A44440 /* NewsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				F3A46D922AEAC23E00A44440 /* SearchResponse.swift */,
+				F3A46D9C2AEBD4F600A44440 /* NewsStory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				F3A46D6E2AEA70DE00A44440 /* WatchListViewController.swift in Sources */,
 				F3A46D832AEA745700A44440 /* NewsViewController.swift in Sources */,
 				F3A46D8B2AEA774900A44440 /* PersistenceManager.swift in Sources */,
+				F3A46D9D2AEBD4F600A44440 /* NewsStory.swift in Sources */,
 				F3A46D892AEA772F00A44440 /* APICaller.swift in Sources */,
 				F3A46D932AEAC23E00A44440 /* SearchResponse.swift in Sources */,
 				F3A46D9B2AEBC43200A44440 /* NewsHeaderView.swift in Sources */,
