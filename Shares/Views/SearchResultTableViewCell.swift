@@ -10,7 +10,6 @@ import SnapKit
 
 class SearchResultTableViewCell: UITableViewCell {
     
-    
     static let identifier = "SearchResultTableViewCell"
     
     private let titleLabel: UILabel = {
@@ -22,7 +21,6 @@ class SearchResultTableViewCell: UITableViewCell {
         let label = UILabel()
         return label
     }()
-    
     
     var model: SearchResult? {
         didSet {
@@ -44,10 +42,8 @@ class SearchResultTableViewCell: UITableViewCell {
     private func setupView() {
         titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
         subTitleLabel.font = .systemFont(ofSize: 10, weight: .medium)
-        
-    
-        addSubview(titleLabel)
-        addSubview(subTitleLabel)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subTitleLabel)
     }
 }
 extension SearchResultTableViewCell  {

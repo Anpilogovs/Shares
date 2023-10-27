@@ -17,6 +17,24 @@ class WatchListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setupTitleView()
         setupSearchController()
+        setUpChild()
+    }
+    
+    
+    private func setUpChild() {
+        let vc = NewsViewController(type: .topStories)
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+            sheet.prefersEdgeAttachedInCompactHeight = true
+        }
+        present(vc, animated: true)
+
+//        addChild(vc)
+//        view.addSubview(vc.view)
+//        vc.view.frame = CGRect(x: 0, y: view.height/2, width: view.width, height: view.height)
+//        vc.didMove(toParent: self)
     }
     
     private func setupTitleView() {
