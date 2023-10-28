@@ -10,12 +10,24 @@ import UIKit
 class WatchListViewController: UIViewController {
     
     private var searchTime: Timer?
-
+    
+    private let tableView: UITableView = {
+        let table = UITableView()
+        return table
+    }()
+    
+    //Model
+    private var watchListMap: [String [String]] = [:]
+    
+    //ViewModels
+    private var viewModels: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setupTitleView()
+        setupTableView()
+        setupWatchListData()
         setupSearchController()
         setUpChild()
     }
@@ -35,6 +47,21 @@ class WatchListViewController: UIViewController {
 //        view.addSubview(vc.view)
 //        vc.view.frame = CGRect(x: 0, y: view.height/2, width: view.width, height: view.height)
 //        vc.didMove(toParent: self)
+    }
+    
+    private func setupWatchListData() {
+        let symbols = PersistenceManager.shared.watchlist
+        for symbols in symbols {
+            //Fetch market data per symbol
+            watchListMap[symbols] = ["some string"]
+        }
+        tableView.reloadData()
+    }
+    
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     private func setupTitleView() {
@@ -95,5 +122,19 @@ extension WatchListViewController: SearchResultsViewControllerDelegate {
         let navVC = UINavigationController(rootViewController: vc)
         vc.title = searchResult.description
         present(navVC, animated: true)
+    }
+}
+extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return watchListMap.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        //Open Detailf for Selection
     }
 }

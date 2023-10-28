@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class NewsViewController: UIViewController {
     
@@ -32,9 +33,7 @@ class NewsViewController: UIViewController {
     }()
     
     private let type: Type
-    private var stories: [NewsStory] = [
-        .init(category: "tech", datetime: 123, headline: "Some headline should go here!", image: "", related: "Realted", source: "CNBC", summary: "", url: "")
-    ]
+    private var stories: [NewsStory] = []
 
     init(type: Type) {
         self.type = type
@@ -65,11 +64,22 @@ class NewsViewController: UIViewController {
     }
     
     private func fetchNews() {
-        
+        APICaller.shared.news(for: type) {[weak self] result in
+            switch result {
+            case .success(let stories):
+                DispatchQueue.main.async {
+                    self?.stories = stories
+                    self?.tableView.reloadData()
+                }
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
     
     public func open(url: URL) {
-        
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true)
     }
 }
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -102,5 +112,16 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         //Open news story
+        let story = stories[indexPath.row]
+        guard let url = URL(string: story.url) else {
+            presentFailedOpenAler()
+            return
+        }
+        open(url: url)
+    }
+    private func presentFailedOpenAler() {
+        let alert = UIAlertController(title: "Unable to Opne", message: "We were unable to open the article.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dissmiss", style: .cancel))
+        present(alert, animated: true)
     }
 }

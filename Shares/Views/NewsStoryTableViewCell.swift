@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SDWebImage
 
 class NewsStoryTableViewCell: UITableViewCell {
     
@@ -37,7 +38,7 @@ class NewsStoryTableViewCell: UITableViewCell {
     //Headline
     private let headLineLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 24, weight: .regular)
+        label.font = .systemFont(ofSize: 22, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
@@ -92,7 +93,7 @@ class NewsStoryTableViewCell: UITableViewCell {
         dateLabel.text = viewModel.dateString
         
         //Manually set image
-//        storyImageVIew.setImage(with: viewModel.imageUrl)
+        storyImageVIew.sd_setImage(with: viewModel.imageUrl, completed: nil)
     }
     
     private func setupConstraints() {
@@ -102,16 +103,19 @@ class NewsStoryTableViewCell: UITableViewCell {
         })
         headLineLabel.snp.makeConstraints({
             $0.leading.equalToSuperview().inset(15)
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalTo(storyImageVIew.snp.leading).inset(5)
+            $0.top.equalTo(sourceLabel.snp.bottom).inset(5)
+            $0.bottom.equalTo(dateLabel.snp.top).inset(5)
+            $0.trailing.equalTo(storyImageVIew.snp.leading).inset(-5)
         })
         dateLabel.snp.makeConstraints({
-            $0.leading.bottom.equalToSuperview().inset(15)
+            $0.leading.equalToSuperview().inset(15)
+            $0.bottom.equalToSuperview().inset(5)
+            $0.height.equalTo(20)
         })
         storyImageVIew.snp.makeConstraints({
             $0.trailing.equalToSuperview().inset(10)
             $0.top.bottom.equalToSuperview().inset(5)
-            $0.width.equalTo(snp.height).inset(-6)
+            $0.width.equalTo(contentView.height)
         })
     }
 }
