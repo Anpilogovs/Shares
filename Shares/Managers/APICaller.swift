@@ -42,7 +42,7 @@ final class APICaller {
             request(url: url(for: .topStories, queryParams: ["category": "general"]), expecting: [NewsStory].self, completion: completion)
         case .compan(let symbol):
             var today = Date()
-            let openMonthBack = today.addTimeInterval(-(Constants.day * 30))
+            let openMonthBack = today.addingTimeInterval(-(Constants.day * 7))
             request(url: url(for: .topStories, queryParams: ["symbol": symbol, "from":  DateFormatter.newsDateFormatter.string(from: openMonthBack), "to": DateFormatter.newsDateFormatter.string(from: today)]), expecting: [NewsStory].self, completion: completion)
         }
     }
