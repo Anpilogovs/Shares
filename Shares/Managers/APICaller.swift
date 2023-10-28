@@ -24,6 +24,7 @@ final class APICaller {
     private init() {}
     
     //MARK: Public
+    // search stocks
     public func search(query: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
        
         guard let safeQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -31,33 +32,36 @@ final class APICaller {
         }
 
         request(url: url(for: .search, queryParams: ["q": safeQuery]), expecting: SearchResponse.self, completion: completion)
-        
             return
     }
     
+    //get stock info
     public func news(for type: NewsViewController.`Type`, completion: @escaping (Result<[NewsStory], Error>) -> Void) {
         
         switch type {
         case .topStories:
             request(url: url(for: .topStories, queryParams: ["category": "general"]), expecting: [NewsStory].self, completion: completion)
         case .compan(let symbol):
-            var today = Date()
+            let today = Date().addingTimeInterval(-(Constants.day))
             let openMonthBack = today.addingTimeInterval(-(Constants.day * 7))
             request(url: url(for: .topStories, queryParams: ["symbol": symbol, "from":  DateFormatter.newsDateFormatter.string(from: openMonthBack), "to": DateFormatter.newsDateFormatter.string(from: today)]), expecting: [NewsStory].self, completion: completion)
         }
     }
-    
-    //get stock info
-    
-    
-    // search stocks
+        
+    public func marketData(for symbol: String, numberOfDays: TimeInterval = 7, completion: @escaping (Result<MarketDataResponse, Error>) -> Void) {
+        let today = Date()
+        let prior = today.addingTimeInterval(-(Constants.day * numberOfDays))
+        let url = url(for: .marketData, queryParams: ["symbol": "1", "from": "\(Int(prior.timeIntervalSince1970))", "to": "\(Int(today.timeIntervalSince1970))"])
+        
+        request(url: url, expecting: MarketDataResponse.self, completion: completion)
+    }
     
     //MARK: - Private
-    
     private enum Endpoint: String {
         case search = "search"
         case topStories = "news"
         case companyNews = "company-news"
+        case marketData = "stock/candle"
     }
     
     private enum APIError: Error  {
@@ -74,13 +78,11 @@ final class APICaller {
             queryItems.append(.init(name: name, value: value))
         }
         
-        
         //Add token
         queryItems.append(.init(name: "token", value: Constants.apiKey))
        
         
         //Convert query items to suffix string
-        
         urlString += "?" + queryItems.map { "\($0.name)=\($0.value ?? "")"}.joined(separator:"&")
 
         print("\n\(urlString)\n")

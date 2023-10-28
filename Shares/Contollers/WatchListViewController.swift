@@ -17,7 +17,7 @@ class WatchListViewController: UIViewController {
     }()
     
     //Model
-    private var watchListMap: [String [String]] = [:]
+    private var watchListMap: [String: [CandleStick]] = [:]
     
     //ViewModels
     private var viewModels: [String] = []
@@ -51,11 +51,27 @@ class WatchListViewController: UIViewController {
     
     private func setupWatchListData() {
         let symbols = PersistenceManager.shared.watchlist
-        for symbols in symbols {
-            //Fetch market data per symbol
-            watchListMap[symbols] = ["some string"]
+        let group = DispatchGroup()
+        
+        for symbol in symbols {
+            group.enter()
+            
+            APICaller.shared.marketData(for: symbol) {[weak self] results in
+                defer {
+                    group.leave()
+                }
+                switch results {
+                case .success(let data):
+                    let candleStick = data.candleStick
+                    self?.watchListMap[symbol] = candleStick
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
-        tableView.reloadData()
+        group.notify(queue: .main)  { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     private func setupTableView() {
@@ -136,5 +152,6 @@ extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         //Open Detailf for Selection
+        
     }
 }
