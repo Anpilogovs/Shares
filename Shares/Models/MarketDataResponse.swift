@@ -29,11 +29,13 @@ struct MarketDataResponse: Codable {
         
         for index in 0..<open.count {
             result.append(
-                .init(date: Date(timeIntervalSince1970: timestamps[index]),
-                      hight: hight[index],
-                      low: low[index],
-                      open: open[index],
-                      close: close[index]))
+                .init(
+                    date: Date(timeIntervalSince1970: timestamps[index]),
+                    hight: hight[index],
+                    low: low[index],
+                    open: open[index],
+                    close: close[index])
+            )
         }
         let sortedData = result.sorted { $0.date < $1.date }
         print(sortedData[0])

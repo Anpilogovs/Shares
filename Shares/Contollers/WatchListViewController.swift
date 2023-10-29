@@ -20,7 +20,7 @@ class WatchListViewController: UIViewController {
     private var watchListMap: [String: [CandleStick]] = [:]
     
     //ViewModels
-    private var viewModels: [String] = []
+    private var viewModels: [WatchListTableViewCell.ViewModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,6 @@ class WatchListViewController: UIViewController {
         setupSearchController()
         setUpChild()
     }
-    
     
     private func setUpChild() {
         let vc = NewsViewController(type: .topStories)
@@ -70,8 +69,43 @@ class WatchListViewController: UIViewController {
             }
         }
         group.notify(queue: .main)  { [weak self] in
+            self?.creteViewModels()
             self?.tableView.reloadData()
         }
+    }
+    
+    private func creteViewModels() {
+        var viewModels = [WatchListTableViewCell.ViewModel]()
+        for (symbol, candleSticks) in watchListMap {
+            let chagePrecentage = getChangePercentage(symbol: symbol, data: candleSticks)
+            viewModels.append(
+                .init(symbol: symbol,
+                      companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
+                      price: getLatesClosingPrice(from: candleSticks),
+                      chageColor: chagePrecentage < 0 ? .systemRed : .systemGreen,
+                      chagePercentage: String.percentage(from: chagePrecentage)))
+        }
+        self.viewModels = viewModels
+    }
+    
+    private func getChangePercentage(symbol: String, data: [CandleStick]) -> Double {
+        let latesDate = data[0].date
+        guard let latesClose = data.first?.close,
+              let priorClose = data.first(where: {
+                  !Calendar.current.isDate($0.date, inSameDayAs: latesDate)
+              })?.close
+        else {
+            return 0
+        }
+        let diff = 1 - (priorClose/latesClose)
+        return diff
+    }
+    
+    private func getLatesClosingPrice(from data: [CandleStick]) -> String {
+        guard let closingPrice = data.first?.close else {
+            return ""
+        }
+        return .formatted(from: closingPrice)
     }
     
     private func setupTableView() {
